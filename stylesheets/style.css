@@ -73,7 +73,12 @@
 
     .page {
         flex-direction: row;
-        height: 100vh;
+        height: 97vh;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
     }
 
     .person-name{
