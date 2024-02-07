@@ -60,11 +60,21 @@ audio {
     text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
 }
 
+.skills {
+    display: flex;
+    justify-content: space-around;
+}
+
+.languages, .jobs {
+    li {
+        margin: 10px 0;
+    }
+}
+
 .profile-content__element {
     display: flex;
     flex-direction: column;
 }
-
 
 .profile-content__title {
     font-weight: bold;
