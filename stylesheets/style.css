@@ -123,21 +123,24 @@ audio {
 .gdpr-consent {
     display: flex;
     flex-direction: column;
+    width: 80%;
     align-items: center;
     position: fixed;
     bottom: 0;
-    left: 0;
+    transform: translateX(-50%);
+    left: 50%;
     right: 0;
     padding: 10px;
     margin: 5px;
     border: 2px solid gray;
     border-radius: 15px 15px 15px 15px;
-    background-color: #e3dddd;
+    background-color: #ffffff;
 }
 
 .gdpr-consent__description{
     display: flex;
     justify-content: center;
+    text-align: center;
 }
 
 .gdpr-consent__choice{
@@ -154,8 +157,8 @@ audio {
     border: 1px solid gray;
 }
 
-.gdpr-consent__button--accept:hover {
-    background-color: #c5e3c5;
+.gdpr-consent__button--accept:hover, .gdpr-consent__button--reject:hover {
+    opacity: 0.75;
 }
 
 .gdpr-consent__button--reject {
@@ -214,7 +217,9 @@ audio {
         color: #5c6166;
         display: flex;
     }
-
+    .gdpr-consent {
+        width: 50%;
+    }
 }
 
 
