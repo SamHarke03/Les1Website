@@ -1,0 +1,80 @@
+# Node.js
+node_modules/
+
+# .env bestand
+server/.env
+
+# macOS
+.DS_Store
+
+# npm-debug.log bestanden
+npm-debug.log
+
+# Yarn logs
+yarn-error.log
+
+# Logs van linters en formatters
+/logs/
+
+# Editorbestanden
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Bestanden die door gebruikers worden aangemaakt
+*.log
+*.bak
+*.sql
+*.sqlite
+
+# Buildbestanden
+/build/
+/dist/
+/out/
+
+# Gegenereerde bestanden
+*.min.js
+*.min.css
+
+# Tijdelijke bestanden
+*.tmp
+*.temp
+
+# Opgeslagen sessies
+.session/
+.sessions/
+
+# Bestanden voor testen
+/coverage/
+/.nyc_output/
+
+# Bestanden die lokaal verschillen
+.env.local
+
+# Enkele applicaties
+/app
+
+# macOS-icoonbestanden
+Icon?
+
+# Gemporteerde projecten
+.nuclide/
+.jenkins/
+
+# Docker
+.dockerignore
+Dockerfile
+.dockerignore
+.docker/
+
+# Vagrant
+.vagrant/
+
+# Serverside-rendering
+/build-manifest.json
+/.next/
+
+# Puppeteer
+node_modules/

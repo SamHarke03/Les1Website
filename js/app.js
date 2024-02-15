@@ -1,6 +1,8 @@
 const form = document.querySelector(".form-contactpagina");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
+const name = document.getElementById("name");
+const message = document.getElementById("message");
 const emailError = document.querySelector("#email + span.error");
 
 email.addEventListener("input", (event) => {
@@ -28,12 +30,10 @@ form.addEventListener("submit", async (event) => {
         showError();
         return;
     }
-
-    debugger;
     let response = await fetch('http://localhost:3000/form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({email: email.value, phone: phone.value})
+        body: JSON.stringify({email: email.value, phone: phone.value, name: name.value, message: message.value})
     });
 
     let data = await response.json();

@@ -54,7 +54,11 @@ body {
 .fx-col{
     flex-direction: column;
 }
-
+.pattern {
+    font-size: 11px;
+    text-align: right;
+    margin-top: -11px;
+}
 .page {
     display: flex;
     flex-direction: column;
