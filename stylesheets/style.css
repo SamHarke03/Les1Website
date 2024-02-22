@@ -44,11 +44,22 @@ body {
     flex-direction: column;
     align-items: center;
 }
+.form-contactpagina {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
 
 .form-contactpagina__inputelement{
     display: flex;
     flex-direction: row;
     margin: 15px 0 15px 0;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
 .fx-col{

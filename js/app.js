@@ -2,6 +2,7 @@ const form = document.querySelector(".form-contactpagina");
 const email = document.getElementById("email");
 const phone = document.getElementById("phone");
 const name = document.getElementById("name");
+const subject = document.getElementById("subject");
 const message = document.getElementById("message");
 const emailError = document.querySelector("#email + span.error");
 
@@ -30,15 +31,23 @@ form.addEventListener("submit", async (event) => {
         showError();
         return;
     }
+
+    if (!checkCaptcha()) {
+        // If captcha is incorrect, prevent form submission
+        return;
+    }
+
     let response = await fetch('http://localhost:3000/form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({email: email.value, phone: phone.value, name: name.value, message: message.value})
+        body: JSON.stringify({email: email.value, phone: phone.value, name: name.value, subject: subject.value, message: message.value})
     });
 
     let data = await response.json();
     alert(JSON.stringify(data))
 
+    document.getElementById('contactForm').reset();
+    generateCaptcha();
 });
 
 function showError() {

@@ -36,13 +36,15 @@ app.post('/form', (req, res) => {
     let email = req.body.email;
     let phone  = req.body.phone;
     let name = req.body.name;
+    let subject = req.body.subject;
     let message = req.body.message;
 
     transport.sendMail({
-        from: 'info@samharke.nl',
-        to: email,
+        from: email,
+        to: 'sam.harke@windesheim.nl',
         subject: 'Contactformulier',
-        text: "Bedankt voor je bericht, " + name + "! Dit was je bericht: " + message + ". We komen hier zo snel mogelijk bij je op terug!"
+        text: "Je hebt een bericht ontvangen van: " + name + ". Onderwerp: " + subject + " Bericht: " + message
+            + " Dit persoon is te contacteren via: " + email + " of " + phone,
     }, (error, info) => {
         if (error) {
             console.log(error);
@@ -53,7 +55,7 @@ app.post('/form', (req, res) => {
         }
     });
 
-    res.json({email: email, phone: phone, name: name, message: message});
+    res.json({email: email, phone: phone, name: name, subject: subject, message: message});
 });
 
 app.listen(port, () => console.log(`Data API listening on port ${port}!`));
