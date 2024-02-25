@@ -19,7 +19,7 @@
 
         <h1>Contact met Sam Harke</h1>
 
-        <form id="contactForm" action="" method="post" class="form-contactpagina">
+        <form id="contactForm" action="" method="post" class="form-contactpagina" onsubmit="showSpinner()">
 
             <div class="form-contactpagina__inputelement fx-col">
                 <label for="name">Voor- en Achternaam: </label>
@@ -56,11 +56,10 @@
 
             <div class="form-contactpagina__inputelement">
                 <input type="submit" value="Verstuur!" onclick="checkCaptcha()">
+                <div class="spinner" id="spinner"></div>
             </div>
 
-
         </form>
-
 
     </section>
 </div>

@@ -23,3 +23,12 @@ function checkCaptcha() {
 
 // Functie uitvoeren als je de pagina binnenkomt
 window.onload = generateCaptcha();
+
+function showSpinner() {
+    document.getElementById('spinner').style.display = 'block';
+    setTimeout(hideSpinner, 1000);
+}
+
+function hideSpinner() {
+    document.getElementById('spinner').style.display = 'none';
+}
