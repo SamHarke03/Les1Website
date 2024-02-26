@@ -75,14 +75,18 @@ app.get('/', (req, res) => {
 app.post('/form', (req, res) => {
     console.log(req.body);
 
-    let email = req.body.email;
-    let phone = req.body.phone;
-    let name = req.body.name;
-    let subject = req.body.subject;
-    let message = req.body.message;
+    const { email, phone, firstName, lastName, subject, message } = req.body;
+
+    if (!email || !phone || !firstName || !lastName || !subject || !message) {
+        return res.status(422).send("Een vereist veld is niet ingevuld!");
+    }
+
+    if (email.length > 80 || phone.length > 20 || firstName.length > 60 || lastName.length > 60 || subject.length > 200 || message.length > 600) {
+        return res.status(501).send("Je hebt meer karakters dan toegestaan ingevoerd.");
+    }
 
     const emailContent = `
-    <p>Je hebt een bericht ontvangen van: <strong>${name}</strong></p>
+    <p>Je hebt een bericht ontvangen van: <strong>${firstName} ${lastName}</strong></p>
     <p><strong>Onderwerp:</strong> ${subject}</p>
     <p><strong>Bericht:</strong> ${message}</p>
     <p>Dit persoon is te contacteren via: ${email} of ${phone}</p>
@@ -108,7 +112,8 @@ app.post('/form', (req, res) => {
     res.json({
         email: email,
         phone: phone,
-        name: name,
+        firstName: firstName,
+        lastName: lastName,
         subject: subject,
         message: message
     });

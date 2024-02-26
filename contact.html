@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Contactpagina | Sam Harke</title>
     <link rel="stylesheet" href="stylesheets/style.css">
+    <meta name="robots" content="noindex, nofollow"/>
     <script defer src="js/app.js"></script>
     <script defer src="js/captcha.js"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -22,33 +23,45 @@
         <form id="contactForm" action="" method="post" class="form-contactpagina" onsubmit="showSpinner()">
 
             <div class="form-contactpagina__inputelement fx-col">
-                <label for="name">Voor- en Achternaam: </label>
-                <input type="text" name="name" id="name" maxlength="120">
+                <label for="firstName">Voornaam:</label>
+                <input type="text" name="firstName" id="firstName" maxlength="60" required>
+                <span class="error" id="firstNameError"></span>
             </div>
 
             <div class="form-contactpagina__inputelement fx-col">
-                <label for="email">Email: </label>
+                <label for="lastName">Achternaam:</label>
+                <input type="text" name="lastName" id="lastName" maxlength="60" required>
+                <span class="error" id="lastNameError"></span>
+            </div>
+
+            <div class="form-contactpagina__inputelement fx-col">
+                <label for="email">Email:</label>
                 <input type="email" name="email" id="email" maxlength="80" required>
+                <span class="error" id="emailError"></span>
             </div>
 
             <div class="form-contactpagina__inputelement fx-col">
-                <label for="phone">Telefoonnummer:</label><span class="pattern">Patroon: 06 12345678</span>
-                <input type="tel" name="phone" id="phone" pattern="[0][6] [0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}" maxlength="20" required/>
+                <label for="phone">Telefoonnummer:</label>
+                <span class="pattern">0612345678 / 06 12345678</span>
+                <input type="tel" name="phone" id="phone" pattern="(06|06 )[0-9]{8}" maxlength="20" required>
+                <span class="error" id="phoneError"></span>
             </div>
 
             <div class="form-contactpagina__inputelement fx-col">
-                <label for="subject">Onderwerp</label>
+                <label for="subject">Onderwerp:</label>
                 <input type="text" name="subject" id="subject" maxlength="200">
+                <span class="error" id="subjectError"></span>
             </div>
 
             <div class="form-contactpagina__inputelement fx-col">
-                <label for="message">Je bericht</label>
-                <textarea name="message" id="message" maxlength="600"></textarea>
+                <label for="message">Je bericht:</label>
+                <textarea name="message" id="message" maxlength="600" required></textarea>
+                <span class="error" id="messageError"></span>
             </div>
 
             <div class="form-contactpagina__inputelement fx-col">
                 <label for="captcha">Voer het volgende getal in:</label>
-                <div id="captcha" style="font-size: 20px; font-weight: bold;"></div>
+                <div id="captcha"></div>
                 <input type="text" name="captchaInput" id="captchaInput" required>
                 <div id="captchaError" class="error-message"></div>
                 <button type="button" onclick="generateCaptcha()">Genereer nieuw getal</button>

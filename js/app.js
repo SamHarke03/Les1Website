@@ -1,70 +1,82 @@
 const form = document.querySelector(".form-contactpagina");
-const email = document.getElementById("email");
-const phone = document.getElementById("phone");
-const name = document.getElementById("name");
-const subject = document.getElementById("subject");
-const message = document.getElementById("message");
-const emailError = document.querySelector("#email + span.error");
+const fields = {
+    email: { input: document.getElementById("email"), error: document.querySelector("#email + span.error") },
+    phone: { input: document.getElementById("phone"), error: document.querySelector("#phone + span.error") },
+    firstName: { input: document.getElementById("firstName"), error: document.querySelector("#firstName + span.error") },
+    lastName: { input: document.getElementById("lastName"), error: document.querySelector("#lastName + span.error") },
+    subject: { input: document.getElementById("subject"), error: document.querySelector("#subject + span.error") },
+    message: { input: document.getElementById("message"), error: document.querySelector("#message + span.error") }
+};
 
-email.addEventListener("input", (event) => {
-    // Each time the user types something, we check if the
-    // form fields are valid.
-
-    if (email.validity.valid) {
-        // In case there is an error message visible, if the field
-        // is valid, we remove the error message.
-        emailError.textContent = ""; // Reset the content of the message
-        emailError.className = "error"; // Reset the visual state of the message
-    } else {
-        // If there is still an error, show the correct error
-        showError();
-    }
+// Event listeners for input fields
+Object.values(fields).forEach(field => {
+    field.input.addEventListener("input", () => {
+        if (field.input.validity.valid) {
+            clearError(field.error);
+        } else {
+            showError(field.input, field.error);
+        }
+    });
 });
 
+// Submit event listener
 form.addEventListener("submit", async (event) => {
-    // Then we prevent the form from being sent by canceling the event
     event.preventDefault();
 
-    // if the email field is valid, we let the form submit
-    if (!email.validity.valid) {
-        // If it isn't, we display an appropriate error message
-        showError();
-        return;
-    }
+    let hasError = false;
 
+    // Check validity of each field
+    Object.values(fields).forEach(field => {
+        if (!field.input.validity.valid) {
+            showError(field.input, field.error);
+            hasError = true;
+        }
+    });
+
+    // Check captcha
     if (!checkCaptcha()) {
-        // If captcha is incorrect, prevent form submission
+        hasError = true;
+    }
+
+    if (hasError) {
         return;
     }
 
+    // Send form data
+    const formData = Object.fromEntries(Object.entries(fields).map(([key, field]) => [key, field.input.value]));
     let response = await fetch('http://localhost:3000/form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({email: email.value, phone: phone.value, name: name.value, subject: subject.value, message: message.value})
+        body: JSON.stringify(formData)
     });
 
+    if (response.status === 422) {
+        alert("Een vereist veld is niet ingevuld!");
+        return;
+    }
+
+    if (response.status === 501) {
+        alert("Je hebt meer karakters dan toegestaan ingevoerd.");
+        return;
+    }
+
     let data = await response.json();
-    alert(JSON.stringify(data))
+    alert("Het formulier is met succes verstuurd! Ingevoerde gegevens:" + JSON.stringify(data));
 
     document.getElementById('contactForm').reset();
     generateCaptcha();
 });
 
-function showError() {
-    if (email.validity.valueMissing) {
-        // If the field is empty,
-        // display the following error message.
-        emailError.textContent = "You need to enter an e-mail address.";
-    } else if (email.validity.typeMismatch) {
-        // If the field doesn't contain an email address,
-        // display the following error message.
-        emailError.textContent = "Entered value needs to be an e-mail address.";
-    } else if (email.validity.tooShort) {
-        // If the data is too short,
-        // display the following error message.
-        emailError.textContent = `E-mail should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
+function showError(input, errorElement) {
+    if (input.validity.valueMissing) {
+        errorElement.textContent = "Dit veld is vereist!";
+    } else if (input.validity.typeMismatch) {
+        errorElement.textContent = "Ingevoerde waarde is ongeldig!";
     }
+    errorElement.classList.add("active");
+}
 
-    // Set the styling appropriately
-    emailError.className = "error active";
+function clearError(errorElement) {
+    errorElement.textContent = "";
+    errorElement.classList.remove("active");
 }
