@@ -4,7 +4,7 @@ class GDPR {
         this.showContent();
         this.bindEvents();
 
-        if(this.cookieStatus() !== 'accept' && this.cookieStatus() !== 'reject') this.showGDPR();
+        if(this.cookieStatus() !== 'accept') this.showGDPR();
     }
 
     bindEvents() {
